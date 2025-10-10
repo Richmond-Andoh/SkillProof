@@ -1,13 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useCurrentAccount, useSuiClient } from "@mysten/dapp-kit";
+import { useCurrentAccount, useSuiClient, useSignAndExecuteTransaction } from "@mysten/dapp-kit";
+import { Transaction } from "@mysten/sui/transactions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, Award, ExternalLink, AlertCircle, Ban, Edit } from "lucide-react";
-import { PACKAGE_ID } from "@/lib/config";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Loader2, Award, ExternalLink, AlertCircle, Ban, Edit, RefreshCw } from "lucide-react";
+import { PACKAGE_ID, REGISTRY_ID } from "@/lib/config";
 
 interface Certificate {
   id: string;
@@ -17,14 +22,22 @@ interface Certificate {
   expirationDate: string;
   revoked: boolean;
   metadata: string;
+  ipfsLink: string;
 }
 
 export default function IssuedCertificatesList() {
   const currentAccount = useCurrentAccount();
   const suiClient = useSuiClient();
+  const { mutate: signAndExecute } = useSignAndExecuteTransaction();
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
+  const [showRevokeDialog, setShowRevokeDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [newMetadata, setNewMetadata] = useState("");
+  const [newIpfsLink, setNewIpfsLink] = useState("");
 
   useEffect(() => {
     if (currentAccount) {
@@ -73,6 +86,7 @@ export default function IssuedCertificatesList() {
               expirationDate: fields.expiration_date || "0",
               revoked: fields.revoked || false,
               metadata: fields.metadata || "",
+              ipfsLink: fields.ipfs_link || "",
             };
           }
         } catch (err) {
@@ -101,10 +115,139 @@ export default function IssuedCertificatesList() {
     return date.toLocaleDateString();
   };
 
+  const handleRevoke = async () => {
+    if (!selectedCert || !currentAccount) return;
+
+    setIsProcessing(true);
+    try {
+      const tx = new Transaction();
+      tx.moveCall({
+        target: `${PACKAGE_ID}::skillproof::revoke_certificate`,
+        arguments: [
+          tx.object(REGISTRY_ID),
+          tx.object(selectedCert.id),
+        ],
+      });
+
+      signAndExecute(
+        { transaction: tx },
+        {
+          onSuccess: () => {
+            setShowRevokeDialog(false);
+            setSelectedCert(null);
+            fetchIssuedCertificates();
+          },
+          onError: (error) => {
+            console.error("Revoke failed:", error);
+            setError(error.message || "Failed to revoke certificate");
+          },
+        }
+      );
+    } catch (err: any) {
+      console.error("Error revoking certificate:", err);
+      setError(err.message || "Failed to revoke certificate");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleUpdateMetadata = async () => {
+    if (!selectedCert || !currentAccount || !newMetadata.trim()) return;
+
+    setIsProcessing(true);
+    try {
+      const tx = new Transaction();
+      tx.moveCall({
+        target: `${PACKAGE_ID}::skillproof::update_certificate_metadata`,
+        arguments: [
+          tx.object(REGISTRY_ID),
+          tx.object(selectedCert.id),
+          tx.pure.string(newMetadata),
+        ],
+      });
+
+      signAndExecute(
+        { transaction: tx },
+        {
+          onSuccess: () => {
+            setShowEditDialog(false);
+            setSelectedCert(null);
+            setNewMetadata("");
+            setNewIpfsLink("");
+            fetchIssuedCertificates();
+          },
+          onError: (error) => {
+            console.error("Update failed:", error);
+            setError(error.message || "Failed to update certificate");
+          },
+        }
+      );
+    } catch (err: any) {
+      console.error("Error updating certificate:", err);
+      setError(err.message || "Failed to update certificate");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleUpdateIpfs = async () => {
+    if (!selectedCert || !currentAccount || !newIpfsLink.trim()) return;
+
+    setIsProcessing(true);
+    try {
+      const tx = new Transaction();
+      tx.moveCall({
+        target: `${PACKAGE_ID}::skillproof::update_certificate_ipfs`,
+        arguments: [
+          tx.object(REGISTRY_ID),
+          tx.object(selectedCert.id),
+          tx.pure.string(newIpfsLink),
+        ],
+      });
+
+      signAndExecute(
+        { transaction: tx },
+        {
+          onSuccess: () => {
+            setShowEditDialog(false);
+            setSelectedCert(null);
+            setNewMetadata("");
+            setNewIpfsLink("");
+            fetchIssuedCertificates();
+          },
+          onError: (error) => {
+            console.error("Update failed:", error);
+            setError(error.message || "Failed to update IPFS link");
+          },
+        }
+      );
+    } catch (err: any) {
+      console.error("Error updating IPFS link:", err);
+      setError(err.message || "Failed to update IPFS link");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const openEditDialog = (cert: Certificate) => {
+    setSelectedCert(cert);
+    setNewMetadata(cert.metadata);
+    setNewIpfsLink(cert.ipfsLink);
+    setShowEditDialog(true);
+  };
+
+  const openRevokeDialog = (cert: Certificate) => {
+    setSelectedCert(cert);
+    setShowRevokeDialog(true);
+  };
+
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center space-y-4">
+          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
+          <p className="text-muted-foreground">Loading issued certificates...</p>
+        </div>
       </div>
     );
   }
@@ -120,26 +263,45 @@ export default function IssuedCertificatesList() {
 
   if (certificates.length === 0) {
     return (
-      <div className="text-center py-12">
-        <Award className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-        <h3 className="text-lg font-semibold mb-2">No Certificates Issued Yet</h3>
-        <p className="text-muted-foreground mb-4">
-          Start by minting your first certificate in the "Mint Certificate" tab.
-        </p>
-      </div>
+      <Card className="border-2 border-dashed">
+        <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+          <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <Award className="h-10 w-10 text-primary" />
+          </div>
+          <h3 className="text-2xl font-semibold mb-3">No Certificates Issued Yet</h3>
+          <p className="text-muted-foreground max-w-md">
+            Start by minting your first certificate in the "Mint Certificate" tab.
+          </p>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-sm text-muted-foreground">
-          Total certificates issued: <span className="font-semibold">{certificates.length}</span>
-        </p>
-        <Button variant="outline" size="sm" onClick={fetchIssuedCertificates}>
-          Refresh
-        </Button>
-      </div>
+    <>
+      <div className="space-y-6">
+        {/* Header Stats */}
+        <Card className="bg-gradient-to-br from-primary/5 via-primary/3 to-background border-primary/20">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center">
+                  <Award className="h-7 w-7 text-primary" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold">{certificates.length}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {certificates.length === 1 ? 'Certificate' : 'Certificates'} Issued
+                  </p>
+                </div>
+              </div>
+              <Button variant="outline" size="sm" onClick={fetchIssuedCertificates} className="gap-2">
+                <RefreshCw className="h-4 w-4" />
+                Refresh
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
       <div className="grid gap-4">
         {certificates.map((cert) => (
@@ -198,11 +360,19 @@ export default function IssuedCertificatesList() {
                     </Button>
                     {!cert.revoked && (
                       <>
-                        <Button variant="outline" size="sm" disabled>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => openEditDialog(cert)}
+                        >
                           <Edit className="h-4 w-4 mr-1" />
                           Edit
                         </Button>
-                        <Button variant="outline" size="sm" disabled>
+                        <Button 
+                          variant="destructive" 
+                          size="sm"
+                          onClick={() => openRevokeDialog(cert)}
+                        >
                           <Ban className="h-4 w-4 mr-1" />
                           Revoke
                         </Button>
@@ -215,6 +385,134 @@ export default function IssuedCertificatesList() {
           </Card>
         ))}
       </div>
-    </div>
+      </div>
+
+      {/* Revoke Dialog */}
+      <Dialog open={showRevokeDialog} onOpenChange={setShowRevokeDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Revoke Certificate</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to revoke this certificate? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          {selectedCert && (
+            <div className="space-y-3 py-4">
+              <div className="p-4 bg-muted rounded-lg">
+                <p className="text-sm font-medium">Student: {selectedCert.studentName}</p>
+                <p className="text-sm text-muted-foreground">Course: {selectedCert.courseName}</p>
+              </div>
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Once revoked, this certificate will be marked as invalid on the blockchain.
+                </AlertDescription>
+              </Alert>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowRevokeDialog(false)} disabled={isProcessing}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleRevoke} disabled={isProcessing}>
+              {isProcessing ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Revoking...
+                </>
+              ) : (
+                'Revoke Certificate'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Dialog */}
+      <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Update Certificate</DialogTitle>
+            <DialogDescription>
+              Update the metadata or IPFS link for this certificate. Core fields cannot be changed.
+            </DialogDescription>
+          </DialogHeader>
+          {selectedCert && (
+            <div className="space-y-4 py-4">
+              <div className="p-4 bg-muted rounded-lg">
+                <p className="text-sm font-medium">Student: {selectedCert.studentName}</p>
+                <p className="text-sm text-muted-foreground">Course: {selectedCert.courseName}</p>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="metadata">Metadata</Label>
+                <Textarea
+                  id="metadata"
+                  placeholder="Additional information, honors, grades, etc."
+                  value={newMetadata}
+                  onChange={(e) => setNewMetadata(e.target.value)}
+                  rows={3}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Update additional details about the certificate
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="ipfs">IPFS Link</Label>
+                <Input
+                  id="ipfs"
+                  placeholder="ipfs://..."
+                  value={newIpfsLink}
+                  onChange={(e) => setNewIpfsLink(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Update the link to the certificate file on IPFS
+                </p>
+              </div>
+
+              <Alert>
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Note: Student name, course name, and issue date cannot be modified. If these need to be changed, revoke this certificate and issue a new one.
+                </AlertDescription>
+              </Alert>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowEditDialog(false)} disabled={isProcessing}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleUpdateIpfs} 
+              disabled={isProcessing || !newIpfsLink.trim()}
+              variant="outline"
+            >
+              {isProcessing ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Updating...
+                </>
+              ) : (
+                'Update IPFS'
+              )}
+            </Button>
+            <Button 
+              onClick={handleUpdateMetadata} 
+              disabled={isProcessing || !newMetadata.trim()}
+            >
+              {isProcessing ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Updating...
+                </>
+              ) : (
+                'Update Metadata'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
