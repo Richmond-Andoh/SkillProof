@@ -74,47 +74,47 @@ export default function Home() {
           </p>
 
           {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-8 mb-12">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5 text-primary" />
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-12 px-4">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
               </div>
               <div className="text-left">
-                <p className="text-2xl font-bold text-gray-900">100%</p>
-                <p className="text-sm text-gray-600">Secure</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">100%</p>
+                <p className="text-xs sm:text-sm text-gray-600">Secure</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center">
-                <CheckCircle2 className="w-5 h-5 text-green-600" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
               </div>
               <div className="text-left">
-                <p className="text-2xl font-bold text-gray-900">Instant</p>
-                <p className="text-sm text-gray-600">Verification</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">Instant</p>
+                <p className="text-xs sm:text-sm text-gray-600">Verification</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center">
-                <Award className="w-5 h-5 text-purple-600" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                <Award className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
               </div>
               <div className="text-left">
-                <p className="text-2xl font-bold text-gray-900">Immutable</p>
-                <p className="text-sm text-gray-600">Records</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">Immutable</p>
+                <p className="text-xs sm:text-sm text-gray-600">Records</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Search Section */}
-        <div className="max-w-4xl mx-auto mb-16 animate-slideIn">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-200/50 p-8 hover:shadow-3xl transition-all duration-300">
+        <div className="max-w-4xl mx-auto mb-16 animate-slideIn px-4">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-200/50 p-6 sm:p-8 hover:shadow-3xl transition-all duration-300">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Search className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                <Search className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">Verify Certificate</h3>
-                <p className="text-sm text-gray-600">Enter the certificate ID to begin verification</p>
+              <div className="min-w-0">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900">Verify Certificate</h3>
+                <p className="text-xs sm:text-sm text-gray-600 truncate">Enter the certificate ID to begin verification</p>
               </div>
             </div>
 
@@ -209,93 +209,93 @@ export default function Home() {
 
         {/* Features Section */}
         {!result && (
-          <div className="mt-20">
+          <div className="mt-16 sm:mt-20 px-4">
             {/* Section Header */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                 Why Choose SkillProof?
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
                 Built on cutting-edge blockchain technology to ensure trust and transparency
               </p>
             </div>
 
             {/* Features Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {/* Feature 1 */}
-              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <ShieldCheck className="w-8 h-8 text-white" />
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
                   Tamper-Proof Security
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   Certificates are immutably stored on the Sui blockchain, making them impossible to forge, alter, or counterfeit.
                 </p>
               </div>
 
               {/* Feature 2 */}
-              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <CheckCircle2 className="w-8 h-8 text-white" />
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
                   Instant Verification
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   Verify any certificate in seconds by entering its unique ID. No waiting, no paperwork, just instant results.
                 </p>
               </div>
 
               {/* Feature 3 */}
-              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <QrCode className="w-8 h-8 text-white" />
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <QrCode className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
                   QR Code Support
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   Scan QR codes from physical or digital certificates for quick and convenient verification on any device.
                 </p>
               </div>
 
               {/* Feature 4 */}
-              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <Building2 className="w-8 h-8 text-white" />
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <Building2 className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
                   Trusted Institutions
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   Only verified educational institutions can issue certificates, ensuring authenticity and credibility.
                 </p>
               </div>
 
               {/* Feature 5 */}
-              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
-                <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <GraduationCap className="w-8 h-8 text-white" />
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <GraduationCap className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
                   Student Ownership
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   Students own their certificates as non-transferable NFTs, ensuring permanent proof of achievement.
                 </p>
               </div>
 
               {/* Feature 6 */}
-              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
-                <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  <TrendingUp className="w-8 h-8 text-white" />
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <TrendingUp className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
                   Future-Proof Technology
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   Built on Sui blockchain, leveraging cutting-edge technology for scalability and performance.
                 </p>
               </div>
