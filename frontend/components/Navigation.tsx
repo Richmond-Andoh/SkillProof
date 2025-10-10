@@ -18,22 +18,22 @@ export default function Navigation() {
   ];
 
   return (
-    <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200/50 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+    <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200/50 sticky top-0 z-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-2">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity group">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-              <Award className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity group flex-shrink-0">
+            <div className="w-9 h-9 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+              <Award className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
             </div>
-            <div>
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900">SkillProof</h1>
-              <p className="text-xs text-gray-600 hidden sm:block">Blockchain Certificates</p>
+            <div className="min-w-0">
+              <h1 className="text-base sm:text-xl font-bold text-gray-900 truncate">SkillProof</h1>
+              <p className="text-xs text-gray-600 hidden sm:block truncate">Blockchain Certificates</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-2 flex-shrink-0">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -43,7 +43,7 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all font-medium",
+                    "flex items-center gap-2 px-3 py-2.5 rounded-xl transition-all font-medium whitespace-nowrap",
                     isActive
                       ? "bg-gradient-to-r from-primary to-blue-600 text-white shadow-lg"
                       : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
@@ -57,7 +57,7 @@ export default function Navigation() {
           </nav>
 
           {/* Right Side Actions */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
             {/* Connect Wallet Button */}
             <div className="hidden sm:block">
               <ConnectButton />
@@ -66,13 +66,13 @@ export default function Navigation() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-gray-700" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
               ) : (
-                <Menu className="w-6 h-6 text-gray-700" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
               )}
             </button>
           </div>
