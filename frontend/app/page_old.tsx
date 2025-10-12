@@ -5,8 +5,6 @@ import { motion } from "framer-motion";
 import { Search, Loader2, QrCode, ShieldCheck, Award, CheckCircle2, Sparkles, ArrowRight, Building2, GraduationCap, TrendingUp } from "lucide-react";
 import { verifyCertificate } from "@/lib/blockchain";
 import CertificateCard from "@/components/CertificateCard";
-import ParticleBackground from "@/components/ParticleBackground";
-import NetworkBackground from "@/components/NetworkBackground";
 import type { CertificateVerificationResult } from "@/lib/types";
 
 export default function Home() {
@@ -42,50 +40,8 @@ export default function Home() {
     }
   };
 
-  const features = [
-    {
-      icon: ShieldCheck,
-      title: "Tamper-Proof Security",
-      description: "Certificates are immutably stored on the Sui blockchain, making them impossible to forge, alter, or counterfeit.",
-      gradient: "var(--gradient-primary)"
-    },
-    {
-      icon: CheckCircle2,
-      title: "Instant Verification",
-      description: "Verify any certificate in seconds by entering its unique ID. No waiting, no paperwork, just instant results.",
-      gradient: "var(--gradient-accent)"
-    },
-    {
-      icon: QrCode,
-      title: "QR Code Support",
-      description: "Scan QR codes from physical or digital certificates for quick and convenient verification on any device.",
-      gradient: "linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%)"
-    },
-    {
-      icon: Building2,
-      title: "Trusted Institutions",
-      description: "Only verified educational institutions can issue certificates, ensuring authenticity and credibility.",
-      gradient: "linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)"
-    },
-    {
-      icon: GraduationCap,
-      title: "Student Ownership",
-      description: "Students own their certificates as non-transferable NFTs, ensuring permanent proof of achievement.",
-      gradient: "linear-gradient(135deg, var(--secondary) 0%, #EC4899 100%)"
-    },
-    {
-      icon: TrendingUp,
-      title: "Future-Proof Technology",
-      description: "Built on Sui blockchain, leveraging cutting-edge technology for scalability and performance.",
-      gradient: "linear-gradient(135deg, #10B981 0%, var(--primary) 100%)"
-    }
-  ];
-
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Particle Background */}
-      <ParticleBackground />
-      
+    <div className="min-h-screen relative overflow-hidden" style={{ background: 'var(--gradient-bg)' }}>
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div 
@@ -135,130 +91,51 @@ export default function Home() {
       <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         {/* Hero Section */}
         <motion.div 
-          className="mb-16"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Badge */}
           <motion.div 
-            className="flex justify-center mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 glass-card rounded-full mb-6 shimmer"
+            style={{ border: '1px solid var(--glass-border)' }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 glass-card rounded-full shimmer"
-              style={{ border: '1px solid var(--glass-border)' }}
-            >
-              <Sparkles className="w-4 h-4" style={{ color: 'var(--primary)' }} />
-              <span className="text-sm font-medium" style={{ color: 'var(--primary)' }}>
-                Blockchain-Powered Verification
-              </span>
-            </div>
+            <Sparkles className="w-4 h-4" style={{ color: 'var(--primary)' }} />
+            <span className="text-sm font-medium" style={{ color: 'var(--primary)' }}>
+              Blockchain-Powered Verification
+            </span>
           </motion.div>
 
-          {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left Column - Content */}
-            <motion.div 
-              className="text-center lg:text-left order-2 lg:order-1"
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              {/* Main Heading */}
-              <motion.h1 
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display mb-6"
-                style={{ color: 'var(--foreground)' }}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                Verify Certificates
-                <br />
-                <motion.span 
-                  className="gradient-text animate-text-glow"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  Instantly & Securely
-                </motion.span>
-              </motion.h1>
+          {/* Main Heading */}
+          <motion.h1 
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+            style={{ color: 'var(--foreground)' }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            Verify Certificates
+            <br />
+            <span className="gradient-text">
+              Instantly & Securely
+            </span>
+          </motion.h1>
 
-              {/* Subheading */}
-              <motion.p 
-                className="text-lg sm:text-xl mb-8 font-body"
-                style={{ color: 'var(--foreground-muted)' }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-              >
-                Enter a certificate ID to instantly verify its authenticity on the Sui blockchain.
-                Tamper-proof, transparent, and trustworthy verification in seconds.
-              </motion.p>
-            </motion.div>
-
-            {/* Right Column - Video */}
-            <motion.div 
-              className="order-1 lg:order-2 flex justify-center"
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <div className="relative w-full max-w-lg">
-                <motion.div
-                  className="glass-card rounded-full p-3 neon-glow hover:animate-glow-rotate transition-all duration-300"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <video
-                    className="w-full h-full rounded-full object-cover"
-                    style={{ 
-                      aspectRatio: '1/1',
-                      filter: 'brightness(1.1) contrast(1.1)',
-                      boxShadow: '0 0 60px rgba(0, 191, 255, 0.4)'
-                    }}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  >
-                    <source src="/hero.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </motion.div>
-                
-                {/* Decorative elements around video */}
-                <motion.div
-                  className="absolute -top-4 -right-4 w-5 h-5 rounded-full blur-sm"
-                  style={{ background: 'var(--primary-glow)' }}
-                  animate={{ 
-                    scale: [1, 1.2, 1],
-                    opacity: [0.5, 0.8, 0.5]
-                  }}
-                  transition={{ 
-                    duration: 3, 
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                <motion.div
-                  className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full blur-sm"
-                  style={{ background: 'var(--accent-glow)' }}
-                  animate={{ 
-                    scale: [1, 1.3, 1],
-                    opacity: [0.4, 0.7, 0.4]
-                  }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1
-                  }}
-                />
-              </div>
-            </motion.div>
-          </div>
+          {/* Subheading */}
+          <motion.p 
+            className="text-lg sm:text-xl max-w-3xl mx-auto mb-8 leading-relaxed"
+            style={{ color: 'var(--foreground-muted)' }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Enter a certificate ID to instantly verify its authenticity on the Sui blockchain.
+            Tamper-proof, transparent, and trustworthy verification in seconds.
+          </motion.p>
 
           {/* Stats */}
           <motion.div 
@@ -515,94 +392,128 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
             >
-              {features.map((feature, index) => {
-                const Icon = feature.icon;
-                return (
-                  <motion.div 
-                    key={index}
-                    className="group glass-card rounded-2xl p-6 sm:p-8 hover:neon-glow transition-all duration-300"
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div 
-                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform neon-glow"
-                      style={{ background: feature.gradient }}
-                    >
-                      <Icon className="w-7 h-7 sm:w-8 sm:h-8" style={{ color: 'var(--primary-foreground)' }} />
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--foreground-muted)' }}>
-                      {feature.description}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </motion.div>
+              {/* Feature 1 */}
+              <motion.div 
+                className="group glass-card rounded-2xl p-6 sm:p-8 hover:neon-glow transition-all duration-300"
+                whileHover={{ scale: 1.02, y: -5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div 
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform neon-glow"
+                  style={{ background: 'var(--gradient-primary)' }}
+                >
+                  <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8" style={{ color: 'var(--primary-foreground)' }} />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>
+                  Tamper-Proof Security
+                </h3>
+                <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--foreground-muted)' }}>
+                  Certificates are immutably stored on the Sui blockchain, making them impossible to forge, alter, or counterfeit.
+                </p>
+              </motion.div>
+
+              {/* Feature 2 */}
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
+                  Instant Verification
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  Verify any certificate in seconds by entering its unique ID. No waiting, no paperwork, just instant results.
+                </p>
+              </div>
+
+              {/* Feature 3 */}
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <QrCode className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
+                  QR Code Support
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  Scan QR codes from physical or digital certificates for quick and convenient verification on any device.
+                </p>
+              </div>
+
+              {/* Feature 4 */}
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <Building2 className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
+                  Trusted Institutions
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  Only verified educational institutions can issue certificates, ensuring authenticity and credibility.
+                </p>
+              </div>
+
+              {/* Feature 5 */}
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <GraduationCap className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
+                  Student Ownership
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  Students own their certificates as non-transferable NFTs, ensuring permanent proof of achievement.
+                </p>
+              </div>
+
+              {/* Feature 6 */}
+              <div className="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <TrendingUp className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
+                  Future-Proof Technology
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  Built on Sui blockchain, leveraging cutting-edge technology for scalability and performance.
+                </p>
+              </div>
+            </div>
+          </div>
         )}
       </main>
 
       {/* Footer */}
-      <motion.footer 
-        className="relative mt-24 glass-card"
-        style={{ borderTop: '1px solid var(--border)' }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.5 }}
-      >
+      <footer className="relative mt-24 border-t border-gray-200 bg-white/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Brand */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div 
-                  className="w-10 h-10 rounded-xl flex items-center justify-center neon-glow"
-                  style={{ background: 'var(--gradient-primary)' }}
-                >
-                  <Award className="w-6 h-6" style={{ color: 'var(--primary-foreground)' }} />
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center">
+                  <Award className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-xl font-bold gradient-text">SkillProof</span>
+                <span className="text-xl font-bold text-gray-900">SkillProof</span>
               </div>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--foreground-muted)' }}>
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Blockchain-powered certificate verification platform built on Sui. Secure, transparent, and trustworthy.
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-sm font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Quick Links</h4>
+              <h4 className="text-sm font-semibold text-gray-900 mb-4">Quick Links</h4>
               <ul className="space-y-2">
                 <li>
-                  <a 
-                    href="/institution" 
-                    className="text-sm transition-colors hover:text-primary"
-                    style={{ color: 'var(--foreground-muted)' }}
-                  >
+                  <a href="/institution" className="text-sm text-gray-600 hover:text-primary transition-colors">
                     For Institutions
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href="/student" 
-                    className="text-sm transition-colors hover:text-primary"
-                    style={{ color: 'var(--foreground-muted)' }}
-                  >
+                  <a href="/student" className="text-sm text-gray-600 hover:text-primary transition-colors">
                     For Students
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href="https://docs.sui.io" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-sm transition-colors hover:text-primary"
-                    style={{ color: 'var(--foreground-muted)' }}
-                  >
+                  <a href="https://docs.sui.io" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-primary transition-colors">
                     Sui Documentation
                   </a>
                 </li>
@@ -611,18 +522,18 @@ export default function Home() {
 
             {/* Technology */}
             <div>
-              <h4 className="text-sm font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Built With</h4>
+              <h4 className="text-sm font-semibold text-gray-900 mb-4">Built With</h4>
               <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-medium glass-card" style={{ color: 'var(--primary)' }}>
+                <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
                   Sui Blockchain
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium glass-card" style={{ color: 'var(--secondary)' }}>
+                <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full">
                   Next.js 15
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium glass-card" style={{ color: 'var(--accent)' }}>
+                <span className="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-medium rounded-full">
                   TypeScript
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium glass-card" style={{ color: 'var(--primary)' }}>
+                <span className="px-3 py-1 bg-pink-100 text-pink-700 text-xs font-medium rounded-full">
                   Tailwind CSS
                 </span>
               </div>
@@ -630,19 +541,18 @@ export default function Home() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="pt-8" style={{ borderTop: '1px solid var(--border)' }}>
+          <div className="pt-8 border-t border-gray-200">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <p className="text-sm" style={{ color: 'var(--foreground-muted)' }}>
+              <p className="text-sm text-gray-600">
                 © 2025 SkillProof. All rights reserved.
               </p>
-              <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--foreground-muted)' }}>
+              <div className="flex items-center gap-2 text-sm text-gray-600">
                 <span>Powered by</span>
                 <a 
                   href="https://sui.io" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="font-semibold transition-colors"
-                  style={{ color: 'var(--primary)' }}
+                  className="font-semibold text-primary hover:text-primary/80 transition-colors"
                 >
                   Sui Network
                 </a>
@@ -650,7 +560,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </motion.footer>
+      </footer>
     </div>
   );
 }

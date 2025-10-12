@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ShieldCheck, Home, Building2, User, Menu, X, Award } from "lucide-react";
 import { ConnectButton } from "@mysten/dapp-kit";
+import PremiumConnectButton from "./PremiumConnectButton";
 import { cn } from "@/lib/utils";
 
 export default function Navigation() {
@@ -18,17 +19,20 @@ export default function Navigation() {
   ];
 
   return (
-    <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200/50 sticky top-0 z-50 overflow-hidden">
+    <header className="glass-card sticky top-0 z-50 overflow-hidden" style={{ borderBottom: '1px solid var(--border)' }}>
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-2">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity group flex-shrink-0">
-            <div className="w-9 h-9 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-              <Award className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+            <div 
+              className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center neon-glow group-hover:scale-105 transition-transform"
+              style={{ background: 'var(--gradient-primary)' }}
+            >
+              <Award className="w-4 h-4 sm:w-6 sm:h-6" style={{ color: 'var(--primary-foreground)' }} />
             </div>
             <div className="min-w-0">
-              <h1 className="text-base sm:text-xl font-bold text-gray-900 truncate">SkillProof</h1>
-              <p className="text-xs text-gray-600 hidden sm:block truncate">Blockchain Certificates</p>
+              <h1 className="text-base sm:text-xl font-bold truncate gradient-text">SkillProof</h1>
+              <p className="text-xs hidden sm:block truncate" style={{ color: 'var(--foreground-muted)' }}>Blockchain Certificates</p>
             </div>
           </Link>
 
@@ -45,9 +49,13 @@ export default function Navigation() {
                   className={cn(
                     "flex items-center gap-2 px-3 py-2.5 rounded-xl transition-all font-medium whitespace-nowrap",
                     isActive
-                      ? "bg-gradient-to-r from-primary to-blue-600 text-white shadow-lg"
-                      : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                      ? "neon-glow"
+                      : "hover:glass-card"
                   )}
+                  style={{
+                    background: isActive ? 'var(--gradient-primary)' : 'transparent',
+                    color: isActive ? 'var(--primary-foreground)' : 'var(--foreground-muted)'
+                  }}
                 >
                   <Icon className="w-4 h-4" />
                   {item.label}
@@ -60,19 +68,19 @@ export default function Navigation() {
           <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
             {/* Connect Wallet Button */}
             <div className="hidden sm:block">
-              <ConnectButton />
+              <PremiumConnectButton />
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
+              className="lg:hidden p-2 rounded-lg hover:glass-card transition-colors flex-shrink-0"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
-                <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: 'var(--foreground)' }} />
               ) : (
-                <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: 'var(--foreground)' }} />
               )}
             </button>
           </div>
@@ -80,7 +88,7 @@ export default function Navigation() {
 
         {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-200/50 animate-fadeIn">
+          <div className="lg:hidden py-4 animate-fadeIn" style={{ borderTop: '1px solid var(--border)' }}>
             <nav className="flex flex-col gap-2 mb-4">
               {navItems.map((item) => {
                 const Icon = item.icon;
@@ -93,10 +101,12 @@ export default function Navigation() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
                       "flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium",
-                      isActive
-                        ? "bg-gradient-to-r from-primary to-blue-600 text-white shadow-lg"
-                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                      isActive ? "neon-glow" : "hover:glass-card"
                     )}
+                    style={{
+                      background: isActive ? 'var(--gradient-primary)' : 'transparent',
+                      color: isActive ? 'var(--primary-foreground)' : 'var(--foreground-muted)'
+                    }}
                   >
                     <Icon className="w-5 h-5" />
                     {item.label}
@@ -107,7 +117,7 @@ export default function Navigation() {
             
             {/* Mobile Connect Wallet */}
             <div className="sm:hidden px-4">
-              <ConnectButton />
+              <PremiumConnectButton />
             </div>
           </div>
         )}
