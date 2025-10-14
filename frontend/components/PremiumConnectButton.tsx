@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Wallet, Zap } from "lucide-react";
-import { ConnectButton, useCurrentAccount } from "@mysten/dapp-kit";
+import { ConnectButton, useCurrentAccount, useDisconnectWallet } from "@mysten/dapp-kit";
+import { LogOut } from "lucide-react";
 
 export default function PremiumConnectButton() {
   const account = useCurrentAccount();
+  const { mutate: disconnectWallet } = useDisconnectWallet();
 
   if (account) {
     return (
@@ -28,6 +30,24 @@ export default function PremiumConnectButton() {
             <p className="text-xs" style={{ color: 'var(--foreground-muted)' }}>
               {account.address.slice(0, 6)}...{account.address.slice(-4)}
             </p>
+          </div>
+          {/* Disconnect button */}
+          <div className="ml-2">
+            <button
+              type="button"
+              onClick={() => {
+                // Confirm before disconnecting
+                if (typeof window !== 'undefined' && window.confirm('Disconnect wallet?')) {
+                  disconnectWallet();
+                }
+              }}
+              className="ml-2 flex items-center gap-2 text-xs px-2 py-1 rounded-md bg-transparent hover:bg-[rgba(255,255,255,0.03)]"
+              
+              aria-label="Disconnect wallet"
+            >
+              <LogOut className="w-3 h-3" />
+              <span className="hidden sm:inline" style={{ color: 'var(--foreground-muted)' }}>Disconnect</span>
+            </button>
           </div>
         </div>
       </motion.div>

@@ -26,6 +26,7 @@ module skillproof::skillproof {
 
     public struct AdminCap has key, store {
         id: UID,
+        owner: address
     }
 
     /// Institution - Represents an educational institution or certificate issuer
@@ -56,6 +57,7 @@ module skillproof::skillproof {
         /// Total number of registered institutions
         total_institutions: u64,
     }
+
 
     /// Certificate - NFT representing a student's certificate
     /// This is a non-transferable soul-bound token
