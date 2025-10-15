@@ -6,10 +6,14 @@
 export const NETWORK = "devnet"; // "devnet", "testnet", or "mainnet"
 
 // Deployed package ID
-export const PACKAGE_ID = "0xeff3b0cb6f2f7d08dc447eab3be9b9c085fbdd6316e4858c8a351eb7f2acb49c";
+export const PACKAGE_ID = "0x8d2b009a4b35cc9fe831b87f385f0d16b6c904aedd9a3a3c129495cc60cbd649";
 
 // InstitutionRegistry shared object ID
-export const REGISTRY_ID = "0x4f02239f3c5e2a358f3357a3449cc8335e7cc2b683556becac60834b5f531223";
+export const REGISTRY_ID = "0x58900e9d7fba73feced9c7e5695c1f195b735c50cc1118fc5b27e564242cc838";
+export const INSTITUTION_REGISTRY_ID = REGISTRY_ID; // Alias for consistency
+
+// AdminCap object ID (from deployment)
+export const ADMIN_CAP_ID = "0x87748255ca474e8dcec20aee3099b0603f98863546a55e420a963aa120f47556";
 
 // Sui RPC endpoints
 export const SUI_RPC_ENDPOINTS = {

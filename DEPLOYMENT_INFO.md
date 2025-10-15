@@ -2,33 +2,33 @@
 
 ## Devnet Deployment
 
-**Deployed:** 2025-10-10
+**Deployed:** 2025-10-14
 
 ### Contract Addresses
 
 **Package ID:**
 ```
-0xeff3b0cb6f2f7d08dc447eab3be9b9c085fbdd6316e4858c8a351eb7f2acb49c
+0x8d2b009a4b35cc9fe831b87f385f0d16b6c904aedd9a3a3c129495cc60cbd649
 ```
 
 **AdminCap Object ID:**
 ```
-0x163ff28381a86f8afb9b83a5508471902b3885fd92b641c1174928a6cebdaf8b
+0x87748255ca474e8dcec20aee3099b0603f98863546a55e420a963aa120f47556
 ```
 
 **InstitutionRegistry Object ID (Shared):**
 ```
-0x4f02239f3c5e2a358f3357a3449cc8335e7cc2b683556becac60834b5f531223
+0x58900e9d7fba73feced9c7e5695c1f195b735c50cc1118fc5b27e564242cc838
 ```
 
 **UpgradeCap Object ID:**
 ```
-0x6daae3fde90ea423c3b883e1e788691f3349464a9826497d0b8bf78e0b242c83
+0x2fca03f25bf5ef0c5e1efe427117f467c9b0f2f73745457c6e496f21e48f6243
 ```
 
 **Deployer Address:**
 ```
-0x7984832a9b054a1a9d698bf0cda4cfe656db7dcface2ed4092353d85eb286af5
+0x0628afba01b3f1d7cd028e186479bc4a0014e9dc6953c239dabaf8f5a90e228e
 ```
 
 ### Network Info
@@ -39,9 +39,9 @@
 
 ### View on Explorer
 
-- **Package:** https://devnet.suivision.xyz/package/0xeff3b0cb6f2f7d08dc447eab3be9b9c085fbdd6316e4858c8a351eb7f2acb49c
-- **AdminCap:** https://devnet.suivision.xyz/object/0x163ff28381a86f8afb9b83a5508471902b3885fd92b641c1174928a6cebdaf8b
-- **Registry:** https://devnet.suivision.xyz/object/0x4f02239f3c5e2a358f3357a3449cc8335e7cc2b683556becac60834b5f531223
+- **Package:** https://devnet.suivision.xyz/package/0x8d2b009a4b35cc9fe831b87f385f0d16b6c904aedd9a3a3c129495cc60cbd649
+- **AdminCap:** https://devnet.suivision.xyz/object/0x87748255ca474e8dcec20aee3099b0603f98863546a55e420a963aa120f47556
+- **Registry:** https://devnet.suivision.xyz/object/0x58900e9d7fba73feced9c7e5695c1f195b735c50cc1118fc5b27e564242cc838
 
 ### Gas Cost
 
@@ -54,30 +54,30 @@
 ### Register an Institution
 ```bash
 sui client call \
-  --package 0xeff3b0cb6f2f7d08dc447eab3be9b9c085fbdd6316e4858c8a351eb7f2acb49c \
+  --package 0x8d2b009a4b35cc9fe831b87f385f0d16b6c904aedd9a3a3c129495cc60cbd649 \
   --module skillproof \
   --function register_institution \
-  --args 0x4f02239f3c5e2a358f3357a3449cc8335e7cc2b683556becac60834b5f531223 "\"Your Institution Name\"" "\"contact@institution.edu\"" \
+  --args 0x58900e9d7fba73feced9c7e5695c1f195b735c50cc1118fc5b27e564242cc838 "\"Your Institution Name\"" "\"contact@institution.edu\"" \
   --gas-budget 10000000
 ```
 
 ### Verify an Institution (Admin Only)
 ```bash
 sui client call \
-  --package 0xeff3b0cb6f2f7d08dc447eab3be9b9c085fbdd6316e4858c8a351eb7f2acb49c \
+  --package 0x8d2b009a4b35cc9fe831b87f385f0d16b6c904aedd9a3a3c129495cc60cbd649 \
   --module skillproof \
   --function verify_institution \
-  --args 0x163ff28381a86f8afb9b83a5508471902b3885fd92b641c1174928a6cebdaf8b 0x4f02239f3c5e2a358f3357a3449cc8335e7cc2b683556becac60834b5f531223 INSTITUTION_ADDRESS \
+  --args 0x87748255ca474e8dcec20aee3099b0603f98863546a55e420a963aa120f47556 0x58900e9d7fba73feced9c7e5695c1f195b735c50cc1118fc5b27e564242cc838 INSTITUTION_ADDRESS \
   --gas-budget 10000000
 ```
 
 ### Mint a Certificate (Verified Institution Only)
 ```bash
 sui client call \
-  --package 0xeff3b0cb6f2f7d08dc447eab3be9b9c085fbdd6316e4858c8a351eb7f2acb49c \
+  --package 0x8d2b009a4b35cc9fe831b87f385f0d16b6c904aedd9a3a3c129495cc60cbd649 \
   --module skillproof \
   --function mint_certificate \
-  --args 0x4f02239f3c5e2a358f3357a3449cc8335e7cc2b683556becac60834b5f531223 "\"Student Name\"" "\"Course Name\"" STUDENT_ADDRESS 0 "\"ipfs://QmHash\"" "\"sha256:hash\"" "\"GPA: 4.0\"" \
+  --args 0x58900e9d7fba73feced9c7e5695c1f195b735c50cc1118fc5b27e564242cc838 "\"Student Name\"" "\"Course Name\"" STUDENT_ADDRESS 0 "\"ipfs://QmHash\"" "\"sha256:hash\"" "\"GPA: 4.0\"" \
   --gas-budget 10000000
 ```
 
@@ -89,8 +89,8 @@ Update `frontend/lib/config.ts` with:
 
 ```typescript
 export const NETWORK = "devnet";
-export const PACKAGE_ID = "0xeff3b0cb6f2f7d08dc447eab3be9b9c085fbdd6316e4858c8a351eb7f2acb49c";
-export const REGISTRY_ID = "0x4f02239f3c5e2a358f3357a3449cc8335e7cc2b683556becac60834b5f531223";
+export const PACKAGE_ID = "0x8d2b009a4b35cc9fe831b87f385f0d16b6c904aedd9a3a3c129495cc60cbd649";
+export const REGISTRY_ID = "0x58900e9d7fba73feced9c7e5695c1f195b735c50cc1118fc5b27e564242cc838";
 ```
 
 ---
@@ -99,16 +99,16 @@ export const REGISTRY_ID = "0x4f02239f3c5e2a358f3357a3449cc8335e7cc2b683556becac
 
 ### Test Institution
 - **Name:** MIT
-- **Address:** 0x7984832a9b054a1a9d698bf0cda4cfe656db7dcface2ed4092353d85eb286af5
+- **Address:** 0x0628afba01b3f1d7cd028e186479bc4a0014e9dc6953c239dabaf8f5a90e228e
 - **Status:** ✅ Verified
 
 ### Test Certificate
-- **Certificate ID:** 0x5ccca5f18bfade3cf4d9000ac1aaa35da01c22b0789b05663cbeb459d51d619e
+- **Certificate ID:** 0x0f1833d2d0d9b517c4b1519e3a101499c83c5a2155401583b43574eab7742807
 - **Student:** Alice Johnson
 - **Course:** Computer Science Degree
 - **Institution:** MIT
 - **Metadata:** GPA: 4.0, Summa Cum Laude
-- **View:** https://devnet.suivision.xyz/object/0x5ccca5f18bfade3cf4d9000ac1aaa35da01c22b0789b05663cbeb459d51d619e
+- **View:** https://devnet.suivision.xyz/object/0x0f1833d2d0d9b517c4b1519e3a101499c83c5a2155401583b43574eab7742807
 
 ---
 

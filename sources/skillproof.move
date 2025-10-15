@@ -26,7 +26,7 @@ module skillproof::skillproof {
 
     public struct AdminCap has key, store {
         id: UID,
-        owner: address
+        //owner: address
     }
 
     /// Institution - Represents an educational institution or certificate issuer

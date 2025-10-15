@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShieldCheck, Home, Building2, User, Menu, X, Award } from "lucide-react";
+import { ShieldCheck, Home, Building2, User, Menu, X, Award, Shield } from "lucide-react";
 import { ConnectButton } from "@mysten/dapp-kit";
 import PremiumConnectButton from "./PremiumConnectButton";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,7 @@ export default function Navigation() {
     { href: "/", label: "Home", icon: Home },
     { href: "/institution", label: "Institution", icon: Building2 },
     { href: "/student", label: "Student", icon: User },
+    { href: "/admin", label: "Admin", icon: Shield },
   ];
 
   return (
