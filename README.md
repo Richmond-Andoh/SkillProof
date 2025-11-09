@@ -80,8 +80,8 @@ export const NETWORK = "testnet";
 
 ```bash
 cd frontend
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Visit http://localhost:3000
