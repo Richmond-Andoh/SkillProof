@@ -282,12 +282,6 @@ Built on:
 
 ---
 
-## 📞 Support & Documentation
-
-
-- **Frontend README**: [frontend/README.md](./frontend/README.md)
-- **Sui Docs**: https://docs.sui.io/
-- **Move Language**: https://move-language.github.io/move/
 
 ---
 
