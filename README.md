@@ -284,7 +284,7 @@ Built on:
 
 ## 📞 Support & Documentation
 
-- **Deployment Guide**: [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
+
 - **Frontend README**: [frontend/README.md](./frontend/README.md)
 - **Sui Docs**: https://docs.sui.io/
 - **Move Language**: https://move-language.github.io/move/
