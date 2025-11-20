@@ -147,11 +147,6 @@ Anyone:
 └── Verify certificates
 ```
 
-### Immutability
-Core fields (student name, course, institution, dates) are **immutable**. Only metadata and IPFS links can be updated.
-
----
-
 ## 📊 Data Flow
 
 ### Certificate Issuance
