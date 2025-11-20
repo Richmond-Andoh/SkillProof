@@ -287,8 +287,6 @@ Built on:
 
 ## 🎉 Get Started
 
-Ready to deploy? Follow the [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for step-by-step instructions!
-
 ```bash
 # Clone the repo
 git clone <your-repo-url>
