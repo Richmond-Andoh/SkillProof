@@ -38,21 +38,6 @@ All certificate data is stored on-chain, making it impossible to forge or alter.
 
 ---
 
-## 🏗️ Architecture
-
-```
-SkillProof/
-├── sources/
-│   └── skillproof.move          # Smart contract (Sui Move)
-├── frontend/                     # Verification portal (Next.js + TypeScript)
-│   ├── app/                     # Next.js app router
-│   ├── components/              # React components
-│   └── lib/                     # Blockchain utilities
-└── DEPLOYMENT_GUIDE.md          # Step-by-step deployment
-```
-
----
-
 ## 🚀 Quick Start
 
 ### 1. Deploy Smart Contract
