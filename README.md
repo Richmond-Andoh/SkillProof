@@ -221,20 +221,6 @@ sui client call --package <PKG> --module skillproof \
 
 ---
 
-## 📈 Roadmap
-
-- [x] Phase 1: Core data structures & institution management
-- [x] Phase 2: Certificate minting
-- [x] Phase 3: Certificate management (revoke, update)
-- [x] Phase 4: Public verification portal
-- [ ] Phase 5: Institution dashboard
-- [ ] Phase 6: Student dashboard
-- [ ] QR code generation and scanning
-- [ ] Batch certificate minting
-- [ ] Certificate templates
-- [ ] Multi-language support
-
----
 
 ## 🤝 Contributing
 
